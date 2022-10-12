@@ -1,0 +1,42 @@
+{
+  "name": "bolt-backend-template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "nodemon src/index.js",
+    "dev-consumer": "nodemon src/index-consumer.js",
+    "dev-demo": "nodemon demo/consumer/index-consumer.js",
+    "docker:app": "pm2-runtime start src/index.js",
+    "docker:consumer": "pm2-runtime start src/index-consumer.js"
+  },
+  "author": "DatPT <phamtiendatkhanh@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1212.0",
+    "cors": "^2.8.5",
+    "dotenv-safe": "^8.2.0",
+    "express": "^4.18.1",
+    "express-validation": "3.0.8",
+    "handlebars": "^4.7.7",
+    "helmet": "^5.1.0",
+    "http-status": "^1.5.2",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.21",
+    "md5": "^2.3.0",
+    "mongoose": "5.13.14",
+    "morgan": "^1.10.0",
+    "nodemailer": "^6.8.0",
+    "nodemailer-express-handlebars": "^5.0.0",
+    "nodemon": "^2.0.19",
+    "pm2": "^5.2.0",
+    "sha1": "^1.1.1",
+    "winston": "^3.8.0"
+  },
+  "devDependencies": {
+    "eslint": "^8.18.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-plugin-import": "^2.26.0"
+  }
+}

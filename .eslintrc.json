@@ -1,0 +1,31 @@
+{
+  "root": true,
+  "env": {
+    "es6": true,
+    "node": true,
+    "jest": true
+  },
+  "extends": [
+    "airbnb-base"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "ecmaVersion": 2022,
+    "sourceType": "module"
+  },
+  "rules": {
+    "max-len": "off",
+    "indent": "off",
+    "global-require": "error",
+    "no-console": "off",
+    "no-underscore-dangle": "off",
+    "no-continue": "off",
+    "no-param-reassign": "off",
+    "no-shadow": "off",
+    "no-restricted-syntax": "off",
+    "no-plusplus": "off"
+  }
+}
