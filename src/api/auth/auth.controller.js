@@ -1,7 +1,7 @@
 const AuthUserBiz = require('../../biz/auth/authUser.biz');
 const AuthAdminBiz = require('../../biz/auth/authAdmin.biz');
 const { decode } = require('../../common/jwt');
-const { getUserByUsername, updateUserByUsername } = require('../../biz/user/user.biz');
+const { getUserByUsername, updateUserByUsername } = require('../../biz/user/User.biz');
 const UserBiz = require('../../');
 
 

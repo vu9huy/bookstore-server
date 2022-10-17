@@ -1,6 +1,6 @@
 const JWT = require('../../common/jwt');
 const ErrorCustomizer = require('../../common/error/custom.error');
-const { createUser, getUserByEmail, updateUserByUsername, getUserByUsername } = require('../user/user.biz');
+const { createUser, getUserByEmail, updateUserByUsername, getUserByUsername } = require('../user/User.biz');
 const { createSalt, validatePassword, hashPashword } = require('../../common/helper');
 const { STATUS_USER } = require('../user/User.type');
 const { sendMailVerify } = require('../../services/nodemailerService/nodemailer');
