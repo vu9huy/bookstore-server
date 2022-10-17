@@ -1,5 +1,5 @@
 const User = require('./User');
-const { STATUS_USER } = require('./user.type');
+const { STATUS_USER } = require('./User.type');
 
 /**
  *
