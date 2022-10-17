@@ -5,9 +5,11 @@ const CartTransform = require('./cart.transform');
 
 exports.getCart = async (req, res, next) => {
     const token = req.headers.authorization;
-    const payload = decode(token);
-    const { username } = payload;
+    console.log('token', token);
     try {
+        const payload = decode(token);
+        const { username } = payload;
+        console.log('payload', payload);
         const userData = await UserBiz.getUserByUsername(username);
         const cart = userData.cart;
         res.sendJSON(cart);

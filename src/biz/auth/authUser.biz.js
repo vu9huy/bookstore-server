@@ -1,6 +1,6 @@
 const JWT = require('../../common/jwt');
 const ErrorCustomizer = require('../../common/error/custom.error');
-const { createUser, getUserByUsername, getUserByEmail, updateUserByUsername } = require('../user/user.biz');
+const { createUser, getUserByEmail, updateUserByUsername, getUserByUsername } = require('../user/user.biz');
 const { createSalt, validatePassword, hashPashword } = require('../../common/helper');
 const { STATUS_USER } = require('../user/User.type');
 const { sendMailVerify } = require('../../services/nodemailerService/nodemailer');
@@ -31,6 +31,9 @@ exports.register = async (username, password, email, avatarUrl) => {
         emailVerified: false,
         verifyEmailToken: verifyEmailToken,
         salt: salt,
+        phone: '',
+        gender: '',
+        birthday: null,
         status: STATUS_USER.ACTIVE,
         cart: [],
         noti: [],
@@ -51,7 +54,6 @@ exports.register = async (username, password, email, avatarUrl) => {
 
 
 exports.verify = async (jwt) => {
-
     if (!JWT.verifyJWTEmailToken(jwt)) throw ErrorCustomizer.UnAuthorized;
     const payload = JWT.decode(jwt);
 
@@ -69,6 +71,7 @@ exports.verify = async (jwt) => {
     const response = await updateUserByUsername(username, newUser);
     return response;
 }
+
 
 
 exports.login = async (username, password) => {

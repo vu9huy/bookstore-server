@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 
-
 const cartSchema = new mongoose.Schema({
     bookId: { type: String, required: true },
     quantity: { type: Number, required: true },
@@ -29,6 +28,8 @@ const userSchema = new mongoose.Schema({
     noti: { type: [notiSchema] },
     cart: { type: [cartSchema], },
     order: { type: [orderSchema], },
+    gender: { type: String },
+    birthday: { type: Date || null },
     address: {
         country: { type: String },
         city: { type: String },

@@ -22,7 +22,9 @@ const uploadFile = async (name) => {
             ContentType: 'image/*'
         })
         const urlImage = `https://${bucketName}.s3.${region}.amazonaws.com/${name}`
-        console.log(url);
+        console.log('url', url);
+        console.log('urlImage', urlImage);
+
         return { url, urlImage };
     } catch (error) {
         console.log(error);
