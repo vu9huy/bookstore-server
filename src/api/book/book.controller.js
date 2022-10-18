@@ -24,7 +24,7 @@ exports.getDetailBook = async (req, res, next) => {
 exports.getListBooks = async (req, res, next) => {
     const { skip, limit } = req.query;
     try {
-        const result = await BookBiz.getListBooks(Number(skip), Number(limit));
+        const result = await BookBiz.getListBooks(Number(skip) || 0, Number(limit) || 25);
         res.sendJSON(BookTransform.toListResponse(result));
     } catch (error) {
         next(error)
@@ -37,7 +37,7 @@ exports.getListBooksByListId = async (req, res, next) => {
     const listIds = req.body;
     console.log('listIds', listIds);
     try {
-        const result = await BookBiz.getListBooksbyListIds(Number(skip), Number(limit), listIds);
+        const result = await BookBiz.getListBooksbyListIds(Number(skip) || 0, Number(limit) || 25, listIds);
         res.sendJSON(BookTransform.toListResponse(result));
     } catch (error) {
         next(error)
