@@ -4,6 +4,7 @@ const { createUser, getUserByEmail, updateUserByUsername, getUserByUsername } = 
 const { createSalt, validatePassword, hashPashword } = require('../../common/helper');
 const { STATUS_USER } = require('../user/User.type');
 const { sendMailVerify } = require('../../services/nodemailerService/nodemailer');
+const axios = require('axios');
 
 /**
  *
@@ -114,7 +115,97 @@ exports.login = async (username, password) => {
     return response;
 }
 
+exports.loginWithGoogle = async (accessTokenGoogle) => {
+    try {
+        const responseByGoogle = await axios.get("https://www.googleapis.com/oauth2/v3/userinfo", {
+            headers: {
+                "Authorization": `Bearer ${accessTokenGoogle}`
+            }
+        })
+        const userDataRaw = responseByGoogle.data;
+        // const userDataRaw = {
+        //     email: "gaaravu@gmail.com",
+        //     email_verified: true,
+        //     family_name: "Vu",
+        //     given_name: "Quan",
+        //     locale: "vi",
+        //     name: "Quan Vu",
+        //     picture: "https://lh3.googleusercontent.com/a/ALm5wu1779vj1JOfrRHZSX9mR2hsV1ohYjipUZ2C77GQCw=s96-c",
+        //     sub: "103983929699061542442"
+        // }
+        const emailUser = userDataRaw.email;
+        const userData = {
+            username: emailUser.substring(0, emailUser.indexOf('@gmail.com')),
+            email: userDataRaw.email,
+            avatarUrl: userDataRaw.picture,
+            name: userDataRaw.name
+        }
+        const userByEmail = await getUserByEmail(userData.email);
+        // console.log('userByEmail', userByEmail);
+        if (userByEmail) {
+            const newUser = { ...userByEmail, emailVerified: true, verifyEmailToken: '' };
+            const responseUpdateUser = await updateUserByUsername(userByEmail.username, newUser);
+        }
+        if (!userByEmail) {
+            const userByUsername = await getUserByUsername(userData.username);
+            var username;
+            const randomNumber = Math.floor(10000 + Math.random() * 90000);
+            if (userByUsername) {
+                username = `${userData.username}-${randomNumber}`
+            } else {
+                username = userData.username
+            }
+            const salt = createSalt();
+            const randomNumber1 = Math.floor(10000 + Math.random() * 90000);
+            const hashPassword = hashPashword('a1234567', salt);
 
+            const newUser = {
+                username: username,
+                password: hashPassword,
+                email: userData.email,
+                avatarUrl: userData.avatarUrl,
+                emailVerified: true,
+                verifyEmailToken: '',
+                salt: salt,
+                phone: '',
+                gender: '',
+                birthday: null,
+                status: STATUS_USER.ACTIVE,
+                cart: [],
+                noti: [],
+                order: [],
+                address: {
+                    country: '',
+                    city: '',
+                    zipCode: '',
+                    detailAddress: '',
+                },
+                phone: ''
+            }
+            const responseCreateUser = await createUser(newUser);
+            // console.log('responseCreateUser:', responseCreateUser);
+        }
+
+        const user = await getUserByEmail(userData.email);
+        const payload = {
+            username: user.username,
+            email: user.email,
+            avatarUrl: user.avatarUrl,
+            quantityCart: user.cart.length
+        }
+        const refreshToken = JWT.createRefreshToken(payload);
+        const accessToken = JWT.createAccessToken(payload);
+
+        const response = {
+            refresh_token: refreshToken,
+            access_token: accessToken,
+        };
+        return response;
+
+    } catch (error) {
+        console.log(error);
+    }
+}
 
 
 /**

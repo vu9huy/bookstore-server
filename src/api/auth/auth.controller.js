@@ -4,7 +4,6 @@ const { decode } = require('../../common/jwt');
 const { getUserByUsername, updateUserByUsername } = require('../../biz/user/User.biz');
 const UserBiz = require('../../');
 
-
 exports.registerUser = async (req, res, next) => {
     const { username, password, email, avatarUrl } = req.body;
     try {
@@ -36,6 +35,17 @@ exports.loginUser = async (req, res, next) => {
     }
 };
 
+exports.loginUserWithGmail = async (req, res, next) => {
+    const { accessTokenGoogle } = req.body;
+    try {
+        const result = await AuthUserBiz.loginWithGoogle(accessTokenGoogle);
+        res.sendJSON(result);
+    } catch (error) {
+        next(error);
+    }
+
+
+}
 
 exports.getUserByToken = async (req, res, next) => {
     const token = req.headers.authorization;

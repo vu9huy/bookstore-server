@@ -10,6 +10,7 @@ router.post('/user/register', AuthController.registerUser);
 router.post('/user/verify', AuthController.verifyUser);
 router.put('/user/edituser', AuthController.editUserData);
 router.get('/user/getuser', AuthController.getUserByToken);
+router.post('/user/login-google', AuthController.loginUserWithGmail);
 router.post('/user/login', validate(login, { context: true }), AuthController.loginUser);
 router.post('/user/refresh-token', validate(refreshToken, { context: true }), AuthController.refreshTokenUser);
 
