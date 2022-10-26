@@ -88,6 +88,43 @@ exports.getCountOfBookConditon = async (req, res, next) => {
     }
 }
 
+// exports.deleteEmtyBook = async (req, res, next) => {
+//     const condition = req.query;
+//     const skip = Number(condition['skip'])
+//     const limit = Number(condition['limit'])
+//     console.log(condition);
+//     delete condition['skip'];
+//     delete condition['limit'];
+//     const ObjQuery = {}
+
+//     for (const prop in condition) {
+//         ObjQuery[prop] = { $regex: condition[prop], $options: 'i' }
+//     }
+
+//     try {
+//         const result = await BookBiz.getListBookByCondition(ObjQuery, skip, limit);
+//         const listBookEmpty = result;
+//         const listBookIdEmpty = listBookEmpty.map(bookEmpty => {
+//             return bookEmpty._id
+//         })
+
+//         const getWithPromiseAll = async () => {
+//             console.time("promise all");
+//             let data = await Promise.all(listBookIdEmpty.map(async (id) => {
+//                 return await BookBiz.deleteBook(id);
+//             }))
+//             console.timeEnd('data', data);
+//         }
+//         getWithPromiseAll();
+
+//         console.log(listBookIdEmpty);
+//         res.sendJSON(listBookIdEmpty);
+//     } catch (error) {
+//         next(error);
+//     }
+// }
+
+
 
 
 exports.updateBook = async (req, res, next) => {

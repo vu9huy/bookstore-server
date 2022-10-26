@@ -16,10 +16,11 @@ router.get('/', BookController.getListBooks);
 router.post('/listid', BookController.getListBooksByListId);
 router.get('/search', BookController.listBookConditon);
 router.get('/count', BookController.getCountOfBookConditon);
-router.get('/:id', BookController.getDetailBook);
+// router.delete('/delete-empty', BookController.deleteEmtyBook);
 router.post('/', BookController.createBook);
 router.put('/:id', BookController.updateBook);
 router.delete('/:id', BookController.deleteBook);
+router.get('/:id', BookController.getDetailBook);
 
 
 module.exports = router;

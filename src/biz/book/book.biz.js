@@ -30,6 +30,7 @@ exports.getListBookByCondition = async (ObjQuery, skip, limit) => {
 }
 
 
+
 exports.updateBook = async (id, book) => {
     const result = await updateOneBookbyId(id, book);
     if (result.nModified === 0) throw UpdateFail;

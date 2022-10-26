@@ -8,6 +8,9 @@ exports.findBooksByListIds = async (skip, limit, listIds) => await Book.find({ _
 
 exports.findBookByCondition = async (ObjQuery, skip, limit) => Book.find(ObjQuery).skip(skip).limit(limit).exec();
 
+// exports.findBookByCondition = async (ObjQuery, skip, limit) => Book.find({ author: '' }).skip(skip).limit(limit);
+
+
 exports.findOneBookById = async (id) => await Book.findById(id).lean();
 
 exports.updateOneBookbyId = async (id, book) => await Book.findByIdAndUpdate(id, book);
