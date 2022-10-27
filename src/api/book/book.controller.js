@@ -73,7 +73,7 @@ exports.getCountOfBookConditon = async (req, res, next) => {
     console.log(condition);
     delete condition['skip'];
     delete condition['limit'];
-    const ObjQuery = {}
+    const ObjQuery = {};
 
     for (const prop in condition) {
         ObjQuery[prop] = { $regex: condition[prop], $options: 'i' }
@@ -87,6 +87,34 @@ exports.getCountOfBookConditon = async (req, res, next) => {
         next(error);
     }
 }
+
+exports.listBookNewConditon = async (req, res, next) => {
+    const page = req.query;
+    const skip = Number(page['skip'])
+    const limit = Number(page['limit'])
+    console.log(page);
+
+    const condition = req.body;
+
+    // const ObjQuery = { $and: [{ datePublished: "2021" }] }
+    const ObjQuery = {
+        $or: [
+            { $and: [{ datePublished: { $regex: '2022', $options: 'i' } }, { datePublished: { $regex: 'october', $options: 'i' } }] },
+            // { $and: [{ datePublished: { $regex: '2022', $options: 'i' } }, { datePublished: { $regex: 'september', $options: 'i' } }] },
+            // { $and: [{ datePublished: { $regex: '2022', $options: 'i' } }, { datePublished: { $regex: 'august', $options: 'i' } }] },
+        ]
+    }
+
+    try {
+        const result = await BookBiz.getListBookByCondition(ObjQuery, skip, limit);
+        const listBooks = BookTransform.toListResponse(result);
+        res.sendJSON(listBooks);
+        res.sendJSON(test);
+    } catch (error) {
+        next(error);
+    }
+}
+
 
 // exports.deleteEmtyBook = async (req, res, next) => {
 //     const condition = req.query;

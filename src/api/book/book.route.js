@@ -16,6 +16,7 @@ router.get('/', BookController.getListBooks);
 router.post('/listid', BookController.getListBooksByListId);
 router.get('/search', BookController.listBookConditon);
 router.get('/count', BookController.getCountOfBookConditon);
+router.get('/newbooks', BookController.listBookNewConditon);
 // router.delete('/delete-empty', BookController.deleteEmtyBook);
 router.post('/', BookController.createBook);
 router.put('/:id', BookController.updateBook);
